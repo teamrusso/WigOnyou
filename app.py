@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, redirect
+# temporary update to trigger redeploy
+
+
+from flask import Flask, render_template, request
 import os
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'static/uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def home():
@@ -13,15 +12,10 @@ def home():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    if 'photo' not in request.files:
-        return redirect('/')
-    file = request.files['photo']
-    if file.filename == '':
-        return redirect('/')
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return redirect('/')
-
+    photo = request.files['photo']
+    upload_path = os.path.join('static', 'uploads', photo.filename)
+    photo.save(upload_path)
+    return f"<h2>Uploaded!</h2><img src='/{upload_path}'_
 import os
 
 if __name__ == '__main__':
