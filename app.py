@@ -15,7 +15,8 @@ def upload():
     photo = request.files['photo']
     upload_path = os.path.join('static', 'uploads', photo.filename)
     photo.save(upload_path)
-    return f"<h2>Uploaded!</h2><img src='/{upload_path}'_
+    return f"<h2>Uploaded!</h2><img src='{upload_path}'>"
+
 import os
 
 if __name__ == '__main__':
